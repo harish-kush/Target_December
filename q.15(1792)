@@ -1,0 +1,32 @@
+class Solution {
+public:
+    typedef pair<int,int> pi;
+     struct Comparator {
+        bool operator()( pi& a,  pi& b) {
+            double x = (double)(a.first + 1) / (a.second + 1) - (a.first / (double)a.second);
+            double y = (double)(b.first + 1) / (b.second + 1) - (b.first / (double)b.second);
+            return x < y; 
+        }
+    };
+   
+    double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
+        priority_queue<pi, vector<pi>, Comparator> pq;
+         for (auto& x : classes) {
+            pq.push({x[0], x[1]});
+        }
+        for(int i=0;i<extraStudents;i++){
+            auto itr = pq.top();
+            pq.pop();
+            itr.first++;
+            itr.second++;
+            pq.push({itr.first,itr.second});
+        }
+        double ans = 0;
+        while(!pq.empty()){
+            auto x = pq.top();
+            pq.pop();
+            ans+=(double)(x.first)/(x.second);
+        }
+        return (double)ans/(classes.size());
+    }
+};
