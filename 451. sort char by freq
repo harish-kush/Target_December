@@ -1,0 +1,25 @@
+class Solution {
+public:
+   typedef pair<int, char> pi;
+    string frequencySort(string s) {
+        int n = s.size();
+        priority_queue<pi> pq;
+        unordered_map<char,int>mp;
+        for(int i=0;i<n;i++){
+            mp[s[i]]++;
+        }
+         for (auto it : mp) {
+            pq.push({it.second, it.first});
+        }
+        string ans;
+        while(!pq.empty()){
+            auto x = pq.top();
+            pq.pop();
+            while(x.first!=0) {
+                ans+=x.second;
+                x.first--;
+            }
+        }
+        return ans;
+    }
+};
