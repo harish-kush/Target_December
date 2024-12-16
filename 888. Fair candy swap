@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> fairCandySwap(vector<int>& as, vector<int>& bs) {
+        int sa = accumulate(as.begin(),as.end(),0);
+        int sb = accumulate(bs.begin(),bs.end(),0);
+
+        int delta = (sa-sb)/2;
+
+        unordered_set<int>s(bs.begin(),bs.end());
+
+        for(auto a : as){
+            int b = a - delta;
+            if(s.count(b)) return{a,b};
+        }
+        return {};
+    }
+};
