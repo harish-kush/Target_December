@@ -1,0 +1,33 @@
+class Solution {
+public:
+    /* 
+     make queue and push root
+     in while loop, make vector list and n = q.size
+     for loop chalao until q.size ,push the current node(q.front)to list and check whether node's children exist or not, if exist push it to queue 
+     after filling que if level is odd,swap the list vector
+     level ++
+     and at last return root 
+    */
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        queue<TreeNode*>q;
+        q.push(root);
+        int level = 0;
+        while(!q.empty()){
+            vector<TreeNode*>list;
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                TreeNode* curr = q.front();
+                q.pop();
+                list.push_back(curr);
+                if(curr->left) q.push(curr->left);
+                if(curr->right) q.push(curr->right);
+            }
+            if(level%2!=0){
+                int n = list.size();
+                for(int j=0;j<n/2;j++) swap(list[j]->val,list[n-j-1]->val);
+            }
+            level++;
+        }
+        return root;
+    }
+};
