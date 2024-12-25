@@ -1,0 +1,13 @@
+class Solution {
+public:
+
+    /*if number is odd no of set bits = dp[i/2] + 1 
+        else no of set bits = dp[i/2] + 0
+    */
+    vector<int> countBits(int n) {
+        vector<int>dp(n+1,-1);
+        dp[0] = 0;
+        for(int i=1;i<=n;i++) dp[i] = dp[i/2] + i%2 ;
+        return dp;
+    }
+};
